@@ -293,7 +293,6 @@ export default {
 
                     this.section.data.items.push({
                         tags: wwLib.wwUtils.getUniqueId() % 2 === 1 ? [tag1] : [],
-                        category: 'toadopt',
                         show: true,
                         prio: Math.random(),
                         data: [
@@ -303,14 +302,7 @@ export default {
                                     url: url
                                 }
                             })
-                        ],
-                        mainImage: wwLib.wwObject.getDefault({
-                                type: 'ww-image',
-                                data: {
-                                    url: url
-                                }
-                            }),
-                        blocks: []
+                        ]
                     })
                 }
                 needUpdate = true;
@@ -632,7 +624,6 @@ export default {
             display: flex;
             justify-content: center;
             transition: all 0.5s ease;
-            // overflow-y: hidden;
 
             .items {
                 position: relative;
