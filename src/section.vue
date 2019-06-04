@@ -292,7 +292,7 @@ export default {
                     }
 
                     this.section.data.items.push({
-                        tags: wwLib.wwUtils.getUniqueId() % 2 === 1 ? [tag1] : [],
+                        tags: [tag1],
                         show: true,
                         prio: Math.random(),
                         data: [
