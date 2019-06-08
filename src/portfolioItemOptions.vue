@@ -1,18 +1,18 @@
 <template>
     <div class="item-options">
         <div class="content">
-            <!-- TAGS -->
+            <!-- CATEGORIES -->
             <div class="content-elem tags">
-                <div class="title">Tags</div>
+                <div class="title">{{wwLang.getText(lang.categories)}}</div>
                 <div v-for="tag in tags.data" :key="tag" class="tag">
                     <wwManagerRadio :value="isTag(tag)" @change="changeTag(tag)"/>
-                    <span class="tag-name">{{tag.name}}</span>
+                    <span class="tag-name">{{wwLang.getText(tag.displayName)}}</span>
                 </div>
             </div>
             <!-- PRIO -->
             <div class="content-elem prio">
-                <div class="title">Prio</div>
-                highest priority will show first (priority can be negative)
+                <div class="title">{{wwLang.getText(lang.priority)}}</div>
+                <span>{{wwLang.getText(lang.priorityMessage)}}</span>
                 <wwManagerInput class="input" type="number" color="green" v-model="prio" label="Prio" v-on:change="updateResult"/>
             </div>
         </div>
@@ -20,6 +20,8 @@
 </template>
 
 <script> 
+import lang from './lang.json'
+
 export default {
     name: "portfolioOptions",
     props: {
@@ -32,6 +34,8 @@ export default {
     },
     data () {
         return {
+            wwLang: wwLib.wwLang,
+            lang: lang,
             item: {},
             tags: {},
             prio: ''

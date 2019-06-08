@@ -24,19 +24,20 @@
             <!-- wwManager:end -->
             <!-- CATEGORIES -->
             <div class="categories">
-                <div class="category" @click="selectedCategory = 'all'" v-if="editMode || categories.isAll">
-                    <span class="name">{{ wwLang.getText(langTextAll) }}</span>
-                </div>
-                <div class="category" v-for="category in categories.data" :key="category.name" @click="selectedCategory = category.name">
+                <span class="category" @click="selectedCategory = 'all'" v-if="editMode || categories.isAll">
+                    <span class="name">{{ wwLang.getText(lang.all) }}</span>
+                </span>
+                <span class="category" v-for="category in categories.data" :key="category.name" @click="selectedCategory = category.name">
                     <span class="name">{{ wwLang.getText(category.displayName) }}</span>
-                </div>
+                </span>
             </div>
             <!-- ITEMS LIST -->
             <div class="items-container" :style="{'min-height': itemsHeight + 'px'}">
                 <div class="items">
                     <div v-for="(item,index) in section.data.items" :key="index" :data-item="index"
                         :ref="`item-${index}`"
-                        class="item" :class="[`item-${index}`, { 'hide': !item.show }]"
+                        class="item" :class="[`item-${index}`]"
+                        v-if="item.show"
                         :style="[getPosition(index), itemStyle]">
                         <!-- wwManager:start -->
                         <wwContextMenu class="ww-orange-button" tag="div"
@@ -56,7 +57,7 @@
                 </div>
             </div>
             <!-- MORE ITEMS BUTTON -->
-            <div class="items-more-btn" @click="moreItems" v-if="section.data.itemsLoading.type === 'items' && maxItems < itemsLength">
+            <div class="items-more-btn" @click="moreItems" v-if="section.data.itemsLoading.type === 'items' && maxItems < nbItemsToShow">
                 <wwObject :ww-object="section.data.moreItemsBtn"></wwObject>
             </div>
         </div>
@@ -69,6 +70,7 @@
 /* wwManager:start */
 import portfolioOptions from './portfolioOptions.vue'
 import portfolioItemOptions from './portfolioItemOptions.vue'
+import lang from './lang.json'
 
 wwLib.wwPopups.addPopup('portfolioOptions', portfolioOptions)
 wwLib.wwPopups.addPopup('portfolioItemOptions', portfolioItemOptions)
@@ -118,7 +120,7 @@ export default {
         return {
             // LANG
             wwLang: wwLib.wwLang,
-            langTextAll: { en: 'All', fr: 'Tous' },
+            lang: lang,
             portefolioOptions: {
                name: {  //Nom du popup, si vide le popup s'appelle 'Menu'
                    en: 'Item',
@@ -167,6 +169,7 @@ export default {
             itemsPerLine: 3,
             itemsHeight: 0,
             maxItems: 20,
+            nbItemsToShow: 0,
             // POSITIONS
             containerWidth: 0,
             columnsHeight: [],
@@ -217,9 +220,6 @@ export default {
                 padding: `${this.section.data.paddings}px`,
                 width: `${100 / this.itemsPerLine}%`
             }
-        },
-        itemsLength () {
-            return this.section.data.items.map(item => item.show).length
         }
     },
     watch: {
@@ -286,7 +286,6 @@ export default {
                         case 'landscapes':
                             url = 'https://wewebapp.s3.eu-west-3.amazonaws.com/designs/36/sections/E6oWIaGBTlTxFPzsAh8VUH8d4A2QKjZN.jpg';
                             break;
-
                         default:
                             break;
                     }
@@ -294,7 +293,7 @@ export default {
                     this.section.data.items.push({
                         tags: [tag1],
                         show: true,
-                        prio: Math.random(),
+                        prio: i * 10,
                         data: [
                             wwLib.wwObject.getDefault({
                                 type: 'ww-image',
@@ -438,7 +437,7 @@ export default {
         /* wwManager:start */
         duplicateItemToStart (index) {
             const item = JSON.parse(JSON.stringify(this.section.data.items[index]))
-            wwLib.wwUtils.changeUniqueIds(item.data)
+            wwLib.wwUtils.changeUniqueIds(item)
             item.prio = this.getMaxPrio() + 1
             this.section.data.items.unshift(item)
 
@@ -449,7 +448,7 @@ export default {
         },
         duplicateItemToEnd (index) {
             const item = JSON.parse(JSON.stringify(this.section.data.items[index]))
-            wwLib.wwUtils.changeUniqueIds(item.data)
+            wwLib.wwUtils.changeUniqueIds(item)
             item.prio = this.getMinPrio() - 1 
             this.section.data.items.push(item)
 
@@ -583,18 +582,38 @@ export default {
         width: 100%;
     }
 
+    .top-ratio-slider {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        flex-wrap: nowrap;
+        pointer-events: all;
+        div {
+            width: 150px;
+        }
+    }
+
     .content {
         position: relative;
-
+        width: 100%;
         .top-wwobjs {
             position: relative;
         }
 
         .categories {
-            margin: 20px 0;
+            margin: 20px 10px;
             display: flex;
             justify-content: center;
-
+            align-items: center;
+            width: 100%;
+            width: auto;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            pointer-events: all;
+            padding-bottom: 25px;
+            
             .category {
                 padding: 0 20px;
                 position: relative;
@@ -677,15 +696,4 @@ export default {
     transition: none;
 }
 
-.top-ratio-slider {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    flex-wrap: nowrap;
-    pointer-events: all;
-    div {
-        width: 150px;
-    }
-}
 </style>

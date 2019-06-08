@@ -1,0 +1,50 @@
+{
+    "categories": {
+        "en": "Categories",
+        "fr": "Catégories"
+    },
+    "isAllcategories": {
+        "en": "All categories",
+        "fr": "Toutes les Catétories"
+    },
+    "all": {
+        "en": "All", 
+        "fr": "Tous"
+    },
+    "add": {
+        "en": "Add", 
+        "fr": "Ajouter"
+    },
+    "nbColumnsPerLine": {
+        "en": "Number of columns per line", 
+        "fr": "Nombres de colonnes par ligne"
+    },
+    "allItems": {
+        "en": "All items", 
+        "fr": "Tous les éléments"
+    },
+    "nbItems": {
+        "en": "Number of items", 
+        "fr": "Nombres d'élément"
+    },
+    "uniqueName": {
+        "en": "Unique name",
+        "fr": "Nom unique"
+    },
+    "paddings": {
+        "en": "Paddings", 
+        "fr": "Paddings"
+    },
+    "itemLoading": {
+        "en": "Item loading", 
+        "fr": "Chargement des éléments"
+    },
+    "priority": {
+        "en": "Priority",
+        "fr": "Priorité"
+    },
+    "priorityMessage": {
+        "en": "highest priority will show first (priority can be negative)",
+        "fr": "la priorité la plus élevée sera affichée en premier (la priorité peut être négative)"
+    }
+}

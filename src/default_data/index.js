@@ -7,7 +7,8 @@ module.exports = [
             fr: "Portfolio",
         },
         storeDesc: {
-            en_GB: "Portfolio"
+            en: "Image gallery with a filter function by category.",
+            fr: "Galerie d'images avec une fonction de filtres par catégorie."
         }
     }
 ]
