@@ -325,9 +325,22 @@ export default {
             this.calculatePos();
         },
         calculatePos() {
-            if (!this.$el) return
+            if (!this.$el || !this.section.data.items.length) {
+                this.recalculatePos();
+                return;
+            }
             this.itemsHeight = 0;
             this.columnsHeight = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            let updated = false;
+            const oldPos = [];
+
+            for (let i = 0; i < this.section.data.items.length; i++) {
+                oldPos[i] = {
+                    top: this.positions[i] ? this.positions[i].top + '' : '',
+                    left: this.positions[i] ? this.positions[i].left + '' : '',
+                }
+            }
+
             this.positions = [];
 
             for (let i = 0; i < this.section.data.items.length; i++) {
@@ -358,6 +371,10 @@ export default {
                 if (col == 0) {
                     this.itemsHeight += this.containerWidth / this.itemsPerLine / 1.5;
                 }
+
+                 if (oldPos[i].top != this.positions[i].top || oldPos[i].left != this.positions[i].left) {
+                    updated = true;
+                }
             }
             let maxColHeight = 0;
             for (let j = 0; j < this.itemsPerLine; j++) {
@@ -366,7 +383,10 @@ export default {
                 }
             }
             this.itemsHeight = maxColHeight + 10
-            this.recalculatePos();
+            
+            if (updated) {
+                this.recalculatePos();
+            }
         },
         recalculatePos() {
             this.ratios = [];
