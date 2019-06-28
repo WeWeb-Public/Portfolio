@@ -41,7 +41,7 @@
                         </wwContextMenu>
                         <!-- wwManager:end -->
                         <wwLayoutColumn tag="div" :ww-list="item.data" @ww-add="add(item.data, $event)" @ww-remove="remove(item.data, $event)">
-                            <wwObject v-for="wwo in item.data" :key="wwo.uniqueId" :ww-object="wwo"></wwObject>
+                            <wwObject v-for="wwo in item.data" :key="wwo.uniqueId" :ww-object="wwo"  @edit="recalculatePos()"></wwObject>
                         </wwLayoutColumn>
                     </div>
                 </div>
