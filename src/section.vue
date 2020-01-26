@@ -57,10 +57,11 @@
 <!-- This is your Javascript -->
 <!-- ✨ Here comes the magic ✨ -->
 <script>
+import lang from './lang.json'
+
 /* wwManager:start */
 import portfolioOptions from './portfolioOptions.vue'
 import portfolioItemOptions from './portfolioItemOptions.vue'
-import lang from './lang.json'
 
 wwLib.wwPopups.addPopup('portfolioOptions', portfolioOptions)
 wwLib.wwPopups.addPopup('portfolioItemOptions', portfolioItemOptions)
@@ -618,7 +619,7 @@ export default {
             align-items: center;
             width: 100%;
             width: auto;
-            overflow-x: scroll;
+            overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
             pointer-events: all;
