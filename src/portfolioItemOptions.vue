@@ -76,7 +76,7 @@ export default {
 .item-options {
     display: inline-flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     .content {
         display: flex;
         padding: 20px;

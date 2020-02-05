@@ -533,8 +533,9 @@ export default {
                     this.filterItems()
                     this.recalculatePos()
                 }
-                console.log(result);
+                wwLib.wwLog.log(result)
             } catch (err) {
+                wwLib.wwLog.error(err)
             }
         },
         async openItemOptions(index) {
@@ -560,8 +561,9 @@ export default {
                     this.filterItems()
                     this.recalculatePos()
                 }
-                console.log(result);
+                wwLib.wwLog.log(result)
             } catch (err) {
+                wwLib.wwLog.error(err)
             }
         }
         /* wwManager:end */
@@ -615,20 +617,17 @@ export default {
         .categories {
             margin: 20px 10px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             width: 100%;
             width: auto;
-            overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
             pointer-events: all;
-            padding-bottom: 25px;
-
             .category {
-                padding: 0 20px;
+                padding: 5px 20px;
                 position: relative;
-
                 .name {
                     pointer-events: all;
                     cursor: pointer;
